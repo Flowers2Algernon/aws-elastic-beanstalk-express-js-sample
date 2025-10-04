@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:16'
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
-        }
-    }
+    agent any
     
     environment {
         // DockerHub credentials
@@ -134,6 +129,7 @@ pipeline {
         }
         success {
             echo '✓✓✓ Pipeline completed successfully! ✓✓✓'
+            archiveArtifacts artifacts: 'build-success.log', allowEmptyArchive: true
         }
         failure {
             echo '✗✗✗ Pipeline failed! ✗✗✗'
